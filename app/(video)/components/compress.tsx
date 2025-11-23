@@ -21,6 +21,7 @@ import {
   VideoInputSettings,
 } from "~/types";
 import { motion, AnimatePresence } from "framer-motion";
+import { getBaseUrl } from "~/lib/utils";
 
 const CompressVideo = () => {
   const [videoFiles, setVideoFiles] = useState<FileActions[]>([]);
@@ -148,13 +149,14 @@ const CompressVideo = () => {
 
   const load = async () => {
     const ffmpeg = ffmpegRef.current;
+    const baseUrl = getBaseUrl();
     await ffmpeg.load({
       coreURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.js`,
+        `${baseUrl}/download/ffmpeg-core.js`,
         "text/javascript"
       ),
       wasmURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.wasm`,
+        `${baseUrl}/download/ffmpeg-core.wasm`,
         "application/wasm"
       ),
     });

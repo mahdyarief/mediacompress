@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { getBaseUrl } from "~/lib/utils";
 const ConvertImage = dynamic(() => import("../components/convert"), {
   ssr: false,
 });
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
       "Convert Images - PNG to WebP and More - Free, High-Quality Online Tool",
     description:
       "Convert images effortlessly with our free online tool. Convert PNG to WebP, JPG, JPEG, GIF, BMP, and AVIF formats. Enjoy high-quality results without sacrificing clarity, perfect for web optimization and sharing.",
-    url: `${process.env.NEXT_PUBLIC_URL}/image`,
+    url: `${getBaseUrl()}/image`,
     type: "website",
     images: "/og-image.png",
     siteName: "Image Converter Hub",

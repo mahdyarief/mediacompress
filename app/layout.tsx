@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "~/components/Navbar";
 import { Toaster } from "sonner";
+import { getBaseUrl } from "~/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +14,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+  metadataBase: new URL(getBaseUrl()),
   alternates: {
     canonical: "/",
     languages: {
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
       "Compress & Convert Videos Like a Pro - Free, High-Quality Online Tool",
     description:
       "Say goodbye to bulky video files! Compress and convert videos effortlessly with our free offline tool. Enjoy high-quality results without sacrificing clarity, perfect for sharing, uploading, or editing. Convert like a pro, for free!",
-    url: process.env.NEXT_PUBLIC_URL,
+    url: getBaseUrl(),
     type: "website",
     images: "/og-image.jpg",
     siteName: "Media Compression Hub",

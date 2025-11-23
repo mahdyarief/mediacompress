@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { getBaseUrl } from "~/lib/utils";
 const CompressVideo = dynamic(() => import("../components/compress"), {
   ssr: false,
 });
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
       "Compress & Convert Videos Like a Pro - Free, High-Quality Online Tool",
     description:
       "Say goodbye to bulky video files! Compress and convert videos effortlessly with our free online tool. Enjoy high-quality results without sacrificing clarity, perfect for sharing, uploading, or editing. Convert like a pro, for free!",
-    url: `${process.env.NEXT_PUBLIC_URL}/video`,
+    url: `${getBaseUrl()}/video`,
     type: "website",
     images: "/og-image.png",
     siteName: "Media Compression Hub",

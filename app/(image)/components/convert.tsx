@@ -19,6 +19,7 @@ import {
   ImageInputSettings,
 } from "~/types";
 import { motion, AnimatePresence } from "framer-motion";
+import { getBaseUrl } from "~/lib/utils";
 
 const ConvertImage = () => {
   const [imageFiles, setImageFiles] = useState<FileActions[]>([]);
@@ -180,13 +181,14 @@ const ConvertImage = () => {
 
   const load = async () => {
     const ffmpeg = ffmpegRef.current;
+    const baseUrl = getBaseUrl();
     await ffmpeg.load({
       coreURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.js`,
+        `${baseUrl}/download/ffmpeg-core.js`,
         "text/javascript"
       ),
       wasmURL: await toBlobURL(
-        `${process.env.NEXT_PUBLIC_URL}/download/ffmpeg-core.wasm`,
+        `${baseUrl}/download/ffmpeg-core.wasm`,
         "application/wasm"
       ),
     });

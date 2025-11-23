@@ -74,21 +74,30 @@ bun install
 bun run dev
 ```
 
-Create `.env.local` file similar to `.env.example` with your `NEXT_PUBLIC_URL` configuration.
-
 ### Environment Variables
 
-Create a `.env.local` file in the root directory:
+For local development, create a `.env.local` file in the root directory (optional):
 
 ```env
 NEXT_PUBLIC_URL=http://localhost:3010
 ```
 
-For production, set this to your deployed URL.
+**Note:** The app automatically detects the URL in production (Vercel, etc.), so `NEXT_PUBLIC_URL` is optional. It's only needed if you want to override the auto-detected URL.
+
+### Deploying to Vercel
+
+This project is ready to deploy to Vercel with zero configuration:
+
+1. Push your code to GitHub/GitLab/Bitbucket
+2. Import the repository in [Vercel](https://vercel.com)
+3. Deploy! Vercel will automatically detect Next.js and configure everything
+
+The app will automatically detect the deployment URL - no environment variables needed. See [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for more details.
 
 ## 🌐 Live Demo
 
-[Live Media Compression Tool](https://mediacompress.prolab.sh/)
+- **Vercel Deployment:** [https://mediacompress.vercel.app/](https://mediacompress.vercel.app/)
+- **Alternative:** [https://mediacompress.prolab.sh/](https://mediacompress.prolab.sh/)
 
 ## 📖 Usage
 

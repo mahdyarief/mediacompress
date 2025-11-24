@@ -59,16 +59,20 @@ export const ImageOutputDetails = ({
     return snakeCase;
   };
 
+  const getDownloadName = (file: FileActions) => {
+    const baseName = toSnakeCase(file.fileName);
+    const extension =
+      imageSettings.mode === "compress" ? file.from : imageSettings.imageType;
+
+    return `${baseName}.${extension}`;
+  };
+
   const download = (file: FileActions) => {
     if (!file?.url) return;
     const a = document.createElement("a");
     a.style.display = "none";
     a.href = file.url;
-    // Use the actual output filename if available, otherwise construct it
-    const downloadName = file.output
-      ? file.output.split("/").pop() || file.output
-      : `${toSnakeCase(file.fileName)}.${imageSettings.mode === "compress" ? file.from : imageSettings.imageType}`;
-    a.download = downloadName;
+    a.download = getDownloadName(file);
     document.body.appendChild(a);
     a.click();
     URL.revokeObjectURL(file.url);
@@ -82,16 +86,7 @@ export const ImageOutputDetails = ({
       // Add all converted files to ZIP with correct names and extensions
       for (const file of imageFiles) {
         if (file.outputBlob) {
-          // Use the actual output filename if available
-          let newFileName: string;
-          if (file.output) {
-            newFileName = file.output.split("/").pop() || file.output;
-          } else {
-            // Fallback: construct filename based on mode
-            const snakeCaseName = toSnakeCase(file.fileName);
-            const format = imageSettings.mode === "compress" ? file.from : imageSettings.imageType;
-            newFileName = `${snakeCaseName}.${format}`;
-          }
+          const newFileName = getDownloadName(file);
           
           // Add file to ZIP
           zip.file(newFileName, file.outputBlob);
@@ -170,13 +165,7 @@ export const ImageOutputDetails = ({
               >
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-xs font-medium truncate flex-1">
-                    {file.output
-                      ? file.output
-                          .split("/")
-                          .pop()
-                          ?.replace(/-compressed\.|-converted\./, ".")
-                          .toLowerCase() || `${toSnakeCase(file.fileName)}.${imageSettings.mode === "compress" ? file.from : imageSettings.imageType}`
-                      : `${toSnakeCase(file.fileName)}.${imageSettings.mode === "compress" ? file.from : imageSettings.imageType}`}
+                    {getDownloadName(file)}
                   </p>
                   <button
                     onClick={() => download(file)}

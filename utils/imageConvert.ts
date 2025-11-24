@@ -121,8 +121,7 @@ export default async function convertImage(
   imageSettings: ImageInputSettings
 ): Promise<any> {
   const { file, fileName } = actionFile;
-  const output =
-    toSnakeCase(fileName) + "-converted." + imageSettings.imageType;
+  const output = toSnakeCase(fileName) + "." + imageSettings.imageType;
 
   // Write input file to FFmpeg's virtual file system
   ffmpeg.writeFile(fileName, await fetchFile(file));

@@ -6,7 +6,7 @@
   "author": {
     "name": "mahdyarief",
     "email": "hi@mahdyarief.xyz",
-    "website": "https://mahdyarief.xyz",
+    "website": "https://mahdyarief.vercel.app",
     "twitter": "https://twitter.com/mahdyarief",
     "linkedin": "https://www.linkedin.com/in/mahdyarief/"
   },
@@ -35,7 +35,8 @@
     "dev": "next dev -p 3010",
     "build": "next build",
     "start": "next start -p 3010",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "node scripts/fix-eslint.js"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",

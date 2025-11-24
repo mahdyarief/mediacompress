@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type ImageDisplayProps = {
@@ -7,11 +8,15 @@ type ImageDisplayProps = {
 export const ImageDisplay = ({ imageUrls }: ImageDisplayProps) => {
   if (imageUrls.length === 1) {
     return (
-      <div className="h-full w-full rounded-3xl flex items-center justify-center p-4">
-        <img
+      <div className="h-full w-full rounded-3xl flex items-center justify-center p-4 relative">
+        <Image
           src={imageUrls[0]}
           alt="Preview"
-          className="max-h-full max-w-full rounded-lg object-contain"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="rounded-lg object-contain"
+          unoptimized
+          priority
         />
       </div>
     );
@@ -25,10 +30,13 @@ export const ImageDisplay = ({ imageUrls }: ImageDisplayProps) => {
             key={index}
             className="relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-gray-100"
           >
-            <img
+            <Image
               src={url}
               alt={`Preview ${index + 1}`}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 50vw, 33vw"
+              className="object-cover"
+              unoptimized
             />
             <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
               {index + 1}

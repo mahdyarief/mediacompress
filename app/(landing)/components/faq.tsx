@@ -5,6 +5,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
+import { imageFormat, videoFormat } from "~/utils/formats";
+import { ImageFormats, VideoFormats } from "~/types";
 
 const Faq = () => (
   <div className="px-6 lg:px-0" id="faq">
@@ -34,6 +36,16 @@ const Faq = () => (
 );
 
 export default Faq;
+
+const formatList = (values: string[]) =>
+  values
+    .map((value) => value.toUpperCase())
+    .join(", ");
+
+const imageInputFormats = formatList(imageFormat);
+const imageOutputFormats = formatList(Object.values(ImageFormats));
+const videoInputFormats = formatList(videoFormat);
+const videoOutputFormats = formatList(Object.values(VideoFormats));
 
 const FAQ = [
   {
@@ -68,6 +80,40 @@ const FAQ = [
   {
     title: "Where are Compressed Videos and Converted Images Saved?",
     description: `When you compress a video or convert an image using this web-based tool, the processed version won't be saved directly on your computer unless you download it manually. All processing happens in your browser, and you have full control over when to save the results.`,
+  },
+  {
+    title: "Which Image Formats Can I Convert Between?",
+    description: (
+      <div className="space-y-2">
+        <p className="text-gray-700">
+          <b>Upload from:</b> {imageInputFormats}
+        </p>
+        <p className="text-gray-700">
+          <b>Convert to:</b> {imageOutputFormats}
+        </p>
+        <p className="text-gray-500 text-sm">
+          You can also use Compress mode to keep the original format while
+          shrinking file size.
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: "Which Video Formats Can I Compress or Export?",
+    description: (
+      <div className="space-y-2">
+        <p className="text-gray-700">
+          <b>Upload from:</b> {videoInputFormats}
+        </p>
+        <p className="text-gray-700">
+          <b>Export to:</b> {videoOutputFormats}
+        </p>
+        <p className="text-gray-500 text-sm">
+          All processing runs locally via FFmpeg in your browser, so no footage
+          ever leaves your device.
+        </p>
+      </div>
+    ),
   },
   {
     title: "What types of videos can be compressed with this tool?",

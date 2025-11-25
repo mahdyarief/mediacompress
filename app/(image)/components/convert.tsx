@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useEffect, useRef, useState } from "react";
-import { acceptedImageFiles } from "~/utils/formats";
+import { acceptedImageFiles, imageFormat } from "~/utils/formats";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import { toast } from "sonner";
@@ -38,7 +38,22 @@ const ConvertImage = () => {
     quality: 80,
   });
   const ffmpegRef = useRef(new FFmpeg());
-  const disableDuringConversion = status === "converting" || status === "compressing";
+  const disableDuringConversion =
+    status === "converting" || status === "compressing";
+  const supportedInputFormats = imageFormat
+    .map((format) => format.toUpperCase())
+    .join(", ");
+  const supportedOutputFormats = [
+    ImageFormats.WEBP,
+    ImageFormats.PNG,
+    ImageFormats.JPG,
+    ImageFormats.JPEG,
+    ImageFormats.GIF,
+    ImageFormats.BMP,
+    ImageFormats.AVIF,
+  ]
+    .map((format) => format.toUpperCase())
+    .join(", ");
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -263,6 +278,15 @@ const ConvertImage = () => {
                 imageFiles.length > 0 ? imageFiles[0].from : undefined
               }
             />
+            <div className="text-xs text-gray-500 bg-white/70 border border-gray-200 rounded-2xl px-4 py-3">
+              <p className="font-semibold text-gray-800">Supported formats</p>
+              <p className="mt-1">
+                Inputs: {supportedInputFormats}
+              </p>
+              <p>
+                Convert to: {supportedOutputFormats}
+              </p>
+            </div>
             <motion.div
               layout
               initial={{ scale: 0.8, opacity: 0 }}
